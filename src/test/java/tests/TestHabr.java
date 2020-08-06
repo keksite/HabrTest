@@ -1,5 +1,7 @@
 package tests;
 
+import com.codeborne.selenide.SelenideElement;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.*;
@@ -9,10 +11,13 @@ import static com.codeborne.selenide.Selenide.*;
 
 class TestHabr {
 
-    @Test
-    void DropDownListSholdBeVisible() {
-        // Открыть habr.com
+    @BeforeEach
+    void openSite(){
         open("https://habr.com/ru/");
+    }
+
+    @Test
+    void dropDownListSholdBeVisible() {
         //нажать на раскрывающийся список
        $(byId("dropdown-control")).click();
        // проверить что раскрывающийся список доступен
@@ -20,9 +25,7 @@ class TestHabr {
     }
 
     @Test
-    void LanguageShouldBeChangedOnRuntime() {
-
-        open("https://habr.com/ru/");
+    void languageShouldBeChangedOnRuntime() {
         //Нажать кнопку смены языка
         $(byCssSelector(".btn_navbar_lang")).click();
         //Переключить язык
@@ -31,18 +34,14 @@ class TestHabr {
         $(".popup__head_lang-settings").shouldBe(text("Language settings"));
     }
     @Test
-    void SearchBarShouldBeVisible() {
-
-        open("https://habr.com/ru/");
+    void searchBarShouldBeVisible() {
         //Кликнуть на кнопку поиска
         $(".btn_navbar_search").click();
         //Проверить что поле поиска появилось
         $("#search-form-field").shouldBe(visible);
     }
     @Test
-    void LogInFormShouldBeOpened() {
-
-        open("https://habr.com/ru/");
+    void logInFormShouldBeOpened() {
         //Нажать на кнопку Войти
         $("#login").click();
         // Проверить что форма логина появилась
@@ -50,8 +49,7 @@ class TestHabr {
     }
 
     @Test
-    void RegistrationFormShouldBeOpened() {
-        open("https://habr.com/ru/");
+    void registrationFormShouldBeOpened() {
         //Нажать на кнопку Зарегестрироваться
         $(".btn_navbar_registration").click();
         //Проверить что форма регистрации появилась
